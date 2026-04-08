@@ -1,0 +1,2 @@
+# Production-Ready-RAG-Pipeline-with-Strict-Tenant-Isolation
+This repository demonstrates a minimal, abstracted Retrieval-Augmented Generation (RAG) architecture designed for compliance-sensitive and regulated enterprise environment. It showcases secure document ingestion, advanced chunking strategies, and vector database integration with a focus on strict data isolation across multiple knowledge spaces.

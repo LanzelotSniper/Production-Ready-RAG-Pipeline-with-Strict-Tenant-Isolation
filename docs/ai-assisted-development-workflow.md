@@ -77,7 +77,7 @@ The counterintuitive rule is: **write less new code, build more understanding**.
 
 ## 9. Performance Benchmark — Competitive Positioning
 
-The following metrics were recorded during the development of this project across **20.9 active development hours**, processing **153,525,739 tokens** and producing **52,502 lines of edited code**.
+The following metrics were recorded across **20.9 active development hours**, processing **153,525,739 tokens** and producing **52,502 lines of edited code** — across 5 working days at 80% of a monthly quota, extrapolating to **~231,000 LOC/month** at the next subscription tier (~$60/month).
 
 ### 9.1 Output Velocity vs. Industry Baseline
 
@@ -85,7 +85,7 @@ The following metrics were recorded during the development of this project acros
 |---|---|---|
 | Average Developer | 15,000 – 45,000 | 10 – 50 |
 | Top 1% Elite | 1,000,000 – 3,000,000 | 500 – 1,000 |
-| **This Project** | **7,350,000** | **2,512** |
+| **Arda** | **7,350,000** | **2,512** |
 | **Global Percentile** | **Top 0.01%** | **~100× baseline** |
 
 These figures reflect a **human-in-the-loop, serially orchestrated** workflow — not a fully automated pipeline. Every output line was reviewed, understood, and accepted by the developer before being committed.

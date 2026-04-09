@@ -218,10 +218,10 @@ def chart_metrics_dashboard():
 
     # three columns inside the banner
     col_data = [
-        ("~€60",          "/ month",           "Total AI Compute Cost",
-         "5 days @ 80% quota → full month extrapolated to 60€ tier"),
-        ("~€0.0003",      "/ LOC",             "Cost per Line of Code",
-         "€60 ÷ ~231,000 LOC/month (22 working days extrapolated)"),
+        ("~$60",          "/ month",           "Total AI Compute Cost",
+         "5 days @ 80% quota → full month extrapolated to 60$ tier"),
+        ("~$0.0003",      "/ LOC",             "Cost per Line of Code",
+         "$60 ÷ ~231,000 LOC/month (22 working days extrapolated)"),
         ("~231k  LOC",    "per month",         "Extrapolated Monthly Output",
          "52,502 LOC in 5 days · ×22 working days · production-ready"),
     ]

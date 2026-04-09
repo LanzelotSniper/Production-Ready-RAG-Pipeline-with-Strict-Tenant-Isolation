@@ -29,10 +29,10 @@
 | Category | Value |
 |---|---|
 | Active Development Time | 20.9 h |
+| Active Development Days | 5 working days |
 | Total Tokens Processed | 153,525,739 |
 | Tokens / Hour | 7,347,021 |
-| Tokens / Day (8 h) | ~58,776,168 |
-| Tokens / Month (176 h) | ~1.29B |
+| Plan Usage | ~80% of monthly quota |
 
 ---
 
@@ -40,10 +40,11 @@
 
 | Category | Value |
 |---|---|
-| Lines Edited | 52,502 LOC |
+| Lines Edited (5 days) | 52,502 LOC |
 | LOC / Hour | ~2,512 |
-| LOC / Day (8 h) | ~20,096 |
+| LOC / Day | ~10,500 |
 | Retention Rate | ~99% |
+| **Extrapolated LOC / Month** | **~231,000** (×22 working days) |
 
 ---
 
@@ -73,7 +74,21 @@
 
 ---
 
-## 4. Workflow Classification
+## 4. Cost Efficiency
+
+> 5 working days at ~80% of a 20$/month plan → extrapolated to the next tier at **~$60/month** for full-month output.
+
+| Metric | Value | Note |
+|---|---|---|
+| Monthly AI Compute Cost | ~$60 | Flat-fee subscription (next tier) |
+| Extrapolated LOC / Month | ~231,000 | 52,502 LOC × 22 working days ÷ 5 |
+| **Cost per LOC** | **~$0.0003** | $60 ÷ 231,000 LOC |
+| vs. Senior Developer ($150/hr) | ~$0.06 / LOC | 200× more expensive per LOC |
+| **Cost leverage** | **~200×** | Same output budget, fraction of human cost |
+
+---
+
+## 6. Workflow Classification
 
 ### Architecture
 
@@ -90,7 +105,7 @@
 
 ---
 
-## 5. Workflow Characteristics
+## 7. Workflow Characteristics
 
 ### Process Structure
 

@@ -35,7 +35,7 @@ flowchart TB
 
 Static preview (PDF, slides, or viewers without Mermaid):
 
-![Dedicated RAG architecture (PNG)](images/dedicated-rag-architecture.png)
+![Dedicated RAG architecture (PNG)](visuals/Flowchart.png)
 
 ## 3. Core Architecture & Component Breakdown
 
@@ -82,4 +82,4 @@ Static preview (PDF, slides, or viewers without Mermaid):
 
 ### Key takeaway
 
-This architecture treats each customer as an independent AI system, not a tenant-turning RAG from a SaaS feature into secure enterprise infrastructure.
+This architecture treats each customer as an independent AI system — turning RAG from a SaaS feature into secure enterprise infrastructure.

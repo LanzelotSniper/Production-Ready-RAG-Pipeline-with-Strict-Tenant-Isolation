@@ -218,12 +218,12 @@ def chart_metrics_dashboard():
 
     # three columns inside the banner
     col_data = [
-        ("~$60",         "/ month",          "Total AI Compute Cost",
-         "Flat-fee subscription · all tokens included"),
-        ("~$0.001",      "/ LOC",            "Cost per Line of Code",
-         "$60 ÷ 52,502 LOC · fully production-ready"),
-        ("100×  output", "same budget",      "vs. Average Developer",
-         "100× the velocity at a fraction of human labor cost"),
+        ("~€60",          "/ month",           "Total AI Compute Cost",
+         "5 days @ 80% quota → full month extrapolated to 60€ tier"),
+        ("~€0.0003",      "/ LOC",             "Cost per Line of Code",
+         "€60 ÷ ~231,000 LOC/month (22 working days extrapolated)"),
+        ("~231k  LOC",    "per month",         "Extrapolated Monthly Output",
+         "52,502 LOC in 5 days · ×22 working days · production-ready"),
     ]
     xs = [0.18, 0.50, 0.82]
     for cx, (big, small, label, sub) in zip(xs, col_data):

@@ -14,12 +14,18 @@ This repository is a clean, abstracted reference implementation of a production 
 
 ---
 
-## Architecture Highlights
+## Architecture
 
-- **Physical tenant isolation** — dedicated VPC, S3 bucket, Aurora cluster, and Vector DB instance per customer. No shared runtime. No cross-tenant query risk.
-- **Compliance-by-design** — meets GDPR Art. 32, data residency requirements, and professional secrecy standards (e.g., Art. 203 StGB for legal clients).
-- **Full RAG pipeline** — token-aware chunking, embedding generation (SentenceTransformers / E5), HNSW vector search (Qdrant / Weaviate), RBAC-enforced retrieval via Aurora PostgreSQL.
-- **Production deployment target** — AWS (eu-central-1), EC2 GPU/CPU inference, KMS-encrypted storage, ALB / API Gateway ingress.
+![Dedicated RAG Infrastructure](docs/visuals/Flowchart.png)
+
+Each customer receives a **fully dedicated AWS environment** — no shared runtime, no shared storage, no shared inference. The architecture enforces isolation at every layer:
+
+- **Dedicated VPC per customer** — no lateral movement risk, no shared network plane
+- **Compliance-by-design** — meets GDPR Art. 32, data residency requirements, and professional secrecy standards (e.g., Art. 203 StGB for legal clients)
+- **Full RAG pipeline** — token-aware chunking, embedding generation (SentenceTransformers / E5), HNSW vector search (Qdrant / Weaviate), RBAC-enforced retrieval via Aurora PostgreSQL
+- **Production deployment target** — AWS (eu-central-1), EC2 GPU/CPU inference, KMS-encrypted storage, ALB / API Gateway ingress
+
+→ Full architecture narrative and security model: [Architecture: Dedicated RAG per Customer](docs/architecture-dedicated-rag.md)
 
 ---
 
@@ -51,18 +57,34 @@ This repository is a clean, abstracted reference implementation of a production 
 
 This project was built using a **human-in-the-loop, serially orchestrated AI workflow** — not vibe-coded, not copy-pasted. Every line was reviewed, understood, and committed intentionally.
 
+### Output Velocity — Global Benchmark
+
 ![Competitive Benchmark](docs/visuals/competitive_benchmark.png)
 
 | Metric | Value |
 |---|---|
-| Active development time | 20.9 hours |
+| Active development time | 20.9 hours (5 working days) |
 | Total tokens processed | 153,525,739 |
-| Output velocity | ~2,512 LOC / hour (Top 0.01% globally) |
-| Code retention rate | ~99% (production-ready on first pass) |
-| AI compute cost | ~$60 / month |
+| Output velocity | ~2,512 LOC / hour · Top 0.01% globally |
 | Extrapolated monthly output | ~231,000 LOC / month |
+| AI compute cost | ~€60 / month (~€0.0003 per LOC) |
 
-The methodology — TDD-first, Plan Mode architecture, 1 chat per phase, deliberate tool routing — is documented in full in the [AI-Assisted Development Workflow](docs/ai-assisted-development-workflow.md).
+### Velocity Without Quality Is Just Noise
+
+High LOC/hour means nothing if the code doesn't survive review. The chart below plots output velocity against code retention rate — the percentage of generated code that reached production without rework.
+
+![Velocity vs. Quality Matrix](docs/visuals/velocity_quality_matrix.png)
+
+**Code retention rate: ~99%.** This is the result of enforcing four structural constraints on every session: Plan Mode first, TDD before implementation, one chat per phase, and deliberate tool routing. Speed and quality are not a tradeoff here — the methodology produces both simultaneously.
+
+### How the Workflow Achieves This
+
+![Workflow Phase Distribution](docs/visuals/workflow_breakdown.png)
+
+40% of every session is spent on quality enforcement (TDD + iteration to a full green suite) and 25% on planning and review. Implementation is only 35% of the total effort — which is exactly why the output is reliable enough to ship.
+
+→ Full methodology: [AI-Assisted Development Workflow](docs/ai-assisted-development-workflow.md)  
+→ Raw metrics and cost analysis: [AI Development Metrics](docs/ai_dev_metrics.md)
 
 ---
 

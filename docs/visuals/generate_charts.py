@@ -257,6 +257,126 @@ def chart_metrics_dashboard():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 2b. METRICS DASHBOARD (INSTAGRAM STORY 9:16)
+# ─────────────────────────────────────────────────────────────────────────────
+def chart_metrics_dashboard_insta_only():
+    fig = plt.figure(figsize=(9, 16), dpi=120)  # 1080x1920
+    fig.patch.set_facecolor(DARK_BG)
+
+    cards = [
+        ("7.35M",      "Tokens / Hour",           ACCENT,  "Peak AI throughput"),
+        ("2,512",      "LOC / Hour",              ACCENT2, "Sustained output velocity"),
+        ("~99%",       "Code Retention Rate",     ACCENT3, "Production-ready on first pass"),
+        ("153.5M",     "Total Tokens Processed",  ACCENT,  "Across 20.9 active hours"),
+        ("52,502",     "Lines of Code",           ACCENT2, "Total edited LOC"),
+        ("~100x",      "Arda vs. Avg. Developer", RED,     "Productivity multiplier"),
+        ("~2.9k",      "Tokens per LOC",          ACCENT3, "Deliberate re-audit density"),
+        ("Top 0.01%",  "Arda - Global Percentile", ACCENT, "AI-native developer tier"),
+    ]
+
+    fig.text(
+        0.5, 0.965,
+        "AI-Assisted Development",
+        ha="center", va="top",
+        color=TEXT, fontsize=30, fontweight="bold",
+    )
+    fig.text(
+        0.5, 0.935,
+        "Metrics Dashboard - Story Edition",
+        ha="center", va="top",
+        color=SUBTEXT, fontsize=14,
+    )
+
+    # 8 KPI cards as a 2x4 grid for better mobile readability.
+    n_cols, n_rows = 2, 4
+    pad_x = 0.05
+    top_y = 0.885
+    bot_y = 0.37
+    pad_y = 0.018
+    w = (1 - pad_x * (n_cols + 1)) / n_cols
+    h = (top_y - bot_y - pad_y * (n_rows + 1)) / n_rows
+
+    for i, (value, label, color, sub) in enumerate(cards):
+        col = i % n_cols
+        row = i // n_cols
+        x0 = pad_x + col * (w + pad_x)
+        y0 = top_y - pad_y - (row + 1) * h - row * pad_y
+
+        ax = fig.add_axes([x0, y0, w, h])
+        ax.set_facecolor(CARD_BG)
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_color(color)
+            spine.set_linewidth(1.6)
+
+        ax.add_patch(FancyBboxPatch(
+            (0, 0.86), 1, 0.14,
+            boxstyle="square,pad=0", color=color, alpha=0.18, transform=ax.transAxes
+        ))
+        ax.plot([0, 1], [0.86, 0.86], color=color, lw=1.4, transform=ax.transAxes, alpha=0.55)
+
+        ax.text(
+            0.5, 0.57, value,
+            ha="center", va="center", transform=ax.transAxes,
+            color=color, fontsize=24, fontweight="bold", fontfamily="monospace",
+        )
+        ax.text(
+            0.5, 0.30, label,
+            ha="center", va="center", transform=ax.transAxes,
+            color=TEXT, fontsize=10.5, fontweight="semibold",
+        )
+        ax.text(
+            0.5, 0.12, sub,
+            ha="center", va="center", transform=ax.transAxes,
+            color=SUBTEXT, fontsize=8.5,
+        )
+
+    GOLD = "#ffd700"
+    ax_cost = fig.add_axes([0.05, 0.12, 0.90, 0.20])
+    ax_cost.set_facecolor(CARD_BG)
+    ax_cost.set_xlim(0, 1)
+    ax_cost.set_ylim(0, 1)
+    ax_cost.set_xticks([])
+    ax_cost.set_yticks([])
+    for spine in ax_cost.spines.values():
+        spine.set_color(GOLD)
+        spine.set_linewidth(1.8)
+
+    ax_cost.text(0.5, 0.90, "Cost Efficiency Snapshot",
+                 ha="center", va="center", color=GOLD, fontsize=14, fontweight="bold")
+
+    rows = [
+        ("~$60 / month", "Total AI compute cost"),
+        ("~$0.0003 / LOC", "Cost per line of code"),
+        ("~231k LOC / month", "Extrapolated monthly output"),
+    ]
+    ys = [0.67, 0.43, 0.19]
+    for y, (big, sub) in zip(ys, rows):
+        ax_cost.text(0.5, y + 0.07, big,
+                     ha="center", va="center", color=GOLD,
+                     fontsize=17, fontweight="bold", fontfamily="monospace")
+        ax_cost.text(0.5, y - 0.02, sub,
+                     ha="center", va="center", color=TEXT, fontsize=10)
+
+    ax_cost.axhline(0.56, color=BORDER, lw=1.1, alpha=0.65)
+    ax_cost.axhline(0.31, color=BORDER, lw=1.1, alpha=0.65)
+
+    fig.text(
+        0.5, 0.045,
+        "Arda - Human-in-the-loop - TDD-Enforced",
+        ha="center", va="bottom", color=SUBTEXT, fontsize=10,
+    )
+
+    path = os.path.join(OUT, "instaOnly.png")
+    fig.savefig(path, dpi=120, facecolor=DARK_BG, edgecolor="none")
+    plt.close(fig)
+    print(f"Saved: {path}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # 3. VELOCITY × QUALITY MATRIX  (bubble positioning chart)
 # ─────────────────────────────────────────────────────────────────────────────
 def chart_velocity_quality_matrix():
@@ -391,6 +511,7 @@ def chart_workflow_breakdown():
 if __name__ == "__main__":
     chart_competitive_benchmark()
     chart_metrics_dashboard()
+    chart_metrics_dashboard_insta_only()
     chart_velocity_quality_matrix()
     chart_workflow_breakdown()
     print("\nAll charts generated successfully.")

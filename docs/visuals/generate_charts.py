@@ -134,30 +134,40 @@ def chart_competitive_benchmark():
 # 2. METRICS DASHBOARD  (KPI cards grid)
 # ─────────────────────────────────────────────────────────────────────────────
 def chart_metrics_dashboard():
-    fig = plt.figure(figsize=(16, 9))
+    fig = plt.figure(figsize=(16, 11))
     fig.patch.set_facecolor(DARK_BG)
 
     cards = [
-        ("7.35M",      "Tokens / Hour",          ACCENT,  "Peak AI throughput"),
-        ("2,512",      "LOC / Hour",              ACCENT2, "Sustained output velocity"),
-        ("~99%",       "Code Retention Rate",     ACCENT3, "Production-ready on first pass"),
-        ("153.5M",     "Total Tokens Processed",  ACCENT,  "Across 20.9 active hours"),
-        ("52,502",     "Lines of Code",           ACCENT2, "Total edited LOC"),
+        ("7.35M",      "Tokens / Hour",           ACCENT,  "Peak AI throughput"),
+        ("2,512",      "LOC / Hour",               ACCENT2, "Sustained output velocity"),
+        ("~99%",       "Code Retention Rate",      ACCENT3, "Production-ready on first pass"),
+        ("153.5M",     "Total Tokens Processed",   ACCENT,  "Across 20.9 active hours"),
+        ("52,502",     "Lines of Code",            ACCENT2, "Total edited LOC"),
         ("~100×",      "Arda vs. Avg. Developer",  RED,     "Productivity multiplier"),
-        ("~2.9k",      "Tokens per LOC",          ACCENT3, "Deliberate re-audit density"),
+        ("~2.9k",      "Tokens per LOC",           ACCENT3, "Deliberate re-audit density"),
         ("Top 0.01%",  "Arda — Global Percentile", ACCENT,  "AI-native developer tier"),
     ]
 
+    # title
+    fig.text(0.5, 0.975,
+             "AI-Assisted Development — Key Performance Metrics",
+             ha="center", va="top",
+             color=TEXT, fontsize=18, fontweight="bold")
+
+    # 8 KPI cards (4×2 grid)
     n_cols, n_rows = 4, 2
-    pad_x, pad_y   = 0.03, 0.06
+    pad_x  = 0.03
+    top_y  = 0.89   # where cards start (below title)
+    bot_y  = 0.28   # where cards end (above cost banner)
+    pad_y  = 0.04
     w = (1 - pad_x * (n_cols + 1)) / n_cols
-    h = (1 - pad_y * (n_rows + 1)) / n_rows
+    h = (top_y - bot_y - pad_y * (n_rows + 1)) / n_rows
 
     for i, (value, label, color, sub) in enumerate(cards):
         col = i % n_cols
         row = i // n_cols
         x0  = pad_x + col * (w + pad_x)
-        y0  = 1 - pad_y - (row + 1) * h - row * pad_y
+        y0  = top_y - pad_y - (row + 1) * h - row * pad_y
 
         ax = fig.add_axes([x0, y0, w, h])
         ax.set_facecolor(CARD_BG)
@@ -169,7 +179,6 @@ def chart_metrics_dashboard():
             spine.set_color(color)
             spine.set_linewidth(1.5)
 
-        # accent bar at top
         ax.add_patch(FancyBboxPatch(
             (0, 0.88), 1, 0.12,
             boxstyle="square,pad=0", color=color, alpha=0.18, transform=ax.transAxes
@@ -187,11 +196,55 @@ def chart_metrics_dashboard():
                 ha="center", va="center", transform=ax.transAxes,
                 color=SUBTEXT, fontsize=9)
 
-    fig.text(0.5, 0.97,
-             "AI-Assisted Development — Key Performance Metrics",
-             ha="center", va="top",
-             color=TEXT, fontsize=18, fontweight="bold")
-    fig.text(0.5, 0.01,
+    # ── Cost Efficiency Banner ──────────────────────────────────────────────
+    GOLD   = "#ffd700"
+    banner_y = 0.07
+    banner_h = 0.17
+    ax_cost = fig.add_axes([pad_x, banner_y, 1 - 2 * pad_x, banner_h])
+    ax_cost.set_facecolor(CARD_BG)
+    ax_cost.set_xlim(0, 1)
+    ax_cost.set_ylim(0, 1)
+    ax_cost.set_xticks([])
+    ax_cost.set_yticks([])
+    for spine in ax_cost.spines.values():
+        spine.set_color(GOLD)
+        spine.set_linewidth(2.0)
+
+    # gold accent strip on left
+    ax_cost.add_patch(FancyBboxPatch(
+        (0, 0), 0.008, 1,
+        boxstyle="square,pad=0", color=GOLD, alpha=0.9, transform=ax_cost.transAxes
+    ))
+
+    # three columns inside the banner
+    col_data = [
+        ("~$60",         "/ month",          "Total AI Compute Cost",
+         "Flat-fee subscription · all tokens included"),
+        ("~$0.001",      "/ LOC",            "Cost per Line of Code",
+         "$60 ÷ 52,502 LOC · fully production-ready"),
+        ("100×  output", "same budget",      "vs. Average Developer",
+         "100× the velocity at a fraction of human labor cost"),
+    ]
+    xs = [0.18, 0.50, 0.82]
+    for cx, (big, small, label, sub) in zip(xs, col_data):
+        ax_cost.text(cx, 0.72, big,
+                     ha="center", va="center", transform=ax_cost.transAxes,
+                     color=GOLD, fontsize=26, fontweight="bold", fontfamily="monospace")
+        ax_cost.text(cx, 0.50, small,
+                     ha="center", va="center", transform=ax_cost.transAxes,
+                     color=GOLD, fontsize=13, fontweight="bold", alpha=0.75)
+        ax_cost.text(cx, 0.30, label,
+                     ha="center", va="center", transform=ax_cost.transAxes,
+                     color=TEXT, fontsize=11, fontweight="semibold")
+        ax_cost.text(cx, 0.10, sub,
+                     ha="center", va="center", transform=ax_cost.transAxes,
+                     color=SUBTEXT, fontsize=8.5)
+
+    # vertical dividers
+    for divx in [0.34, 0.66]:
+        ax_cost.axvline(divx, color=BORDER, lw=1.2, alpha=0.7)
+
+    fig.text(0.5, 0.025,
              "Arda · Human-in-the-loop · Serially Orchestrated · TDD-Enforced · 1 Chat / Phase",
              ha="center", va="bottom",
              color=SUBTEXT, fontsize=10)

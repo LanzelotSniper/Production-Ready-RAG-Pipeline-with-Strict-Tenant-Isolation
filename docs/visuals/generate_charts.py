@@ -29,7 +29,7 @@ BORDER    = "#30363d"
 # 1. COMPETITIVE BENCHMARK  (log-scale bar chart, LOC/hr + Tokens/hr)
 # ─────────────────────────────────────────────────────────────────────────────
 def chart_competitive_benchmark():
-    fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+    fig, axes = plt.subplots(1, 2, figsize=(16, 8), dpi=240)
     fig.patch.set_facecolor(DARK_BG)
 
     labels    = ["Average\nDeveloper", "Top 1%\nElite", "Arda"]
@@ -124,7 +124,7 @@ def chart_competitive_benchmark():
 
     plt.tight_layout()
     path = os.path.join(OUT, "competitive_benchmark.png")
-    fig.savefig(path, dpi=150, bbox_inches="tight",
+    fig.savefig(path, dpi=240, bbox_inches="tight",
                 facecolor=DARK_BG, edgecolor="none")
     plt.close(fig)
     print(f"Saved: {path}")
@@ -134,7 +134,7 @@ def chart_competitive_benchmark():
 # 2. METRICS DASHBOARD  (KPI cards grid)
 # ─────────────────────────────────────────────────────────────────────────────
 def chart_metrics_dashboard():
-    fig = plt.figure(figsize=(16, 11))
+    fig = plt.figure(figsize=(16, 11), dpi=240)
     fig.patch.set_facecolor(DARK_BG)
 
     cards = [
@@ -250,7 +250,7 @@ def chart_metrics_dashboard():
              color=SUBTEXT, fontsize=10)
 
     path = os.path.join(OUT, "metrics_dashboard.png")
-    fig.savefig(path, dpi=150, bbox_inches="tight",
+    fig.savefig(path, dpi=240, bbox_inches="tight",
                 facecolor=DARK_BG, edgecolor="none")
     plt.close(fig)
     print(f"Saved: {path}")
@@ -260,7 +260,7 @@ def chart_metrics_dashboard():
 # 3. VELOCITY × QUALITY MATRIX  (bubble positioning chart)
 # ─────────────────────────────────────────────────────────────────────────────
 def chart_velocity_quality_matrix():
-    fig, ax = plt.subplots(figsize=(13, 9))
+    fig, ax = plt.subplots(figsize=(16, 11), dpi=240)
     fig.patch.set_facecolor(DARK_BG)
     ax.set_facecolor(CARD_BG)
     for spine in ax.spines.values():
@@ -321,7 +321,7 @@ def chart_velocity_quality_matrix():
     )
 
     path = os.path.join(OUT, "velocity_quality_matrix.png")
-    fig.savefig(path, dpi=150, bbox_inches="tight",
+    fig.savefig(path, dpi=240, bbox_inches="tight",
                 facecolor=DARK_BG, edgecolor="none")
     plt.close(fig)
     print(f"Saved: {path}")
@@ -331,7 +331,7 @@ def chart_velocity_quality_matrix():
 # 4. WORKFLOW EFFICIENCY BREAKDOWN  (horizontal stacked / gantt-style)
 # ─────────────────────────────────────────────────────────────────────────────
 def chart_workflow_breakdown():
-    fig, ax = plt.subplots(figsize=(14, 6))
+    fig, ax = plt.subplots(figsize=(16, 7), dpi=240)
     fig.patch.set_facecolor(DARK_BG)
     ax.set_facecolor(CARD_BG)
     for spine in ax.spines.values():
@@ -382,7 +382,7 @@ def chart_workflow_breakdown():
 
     plt.tight_layout(rect=[0, 0.08, 1, 1])
     path = os.path.join(OUT, "workflow_breakdown.png")
-    fig.savefig(path, dpi=150, bbox_inches="tight",
+    fig.savefig(path, dpi=240, bbox_inches="tight",
                 facecolor=DARK_BG, edgecolor="none")
     plt.close(fig)
     print(f"Saved: {path}")
